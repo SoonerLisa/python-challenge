@@ -1,0 +1,4 @@
+PyBank Results
+Total Months: 86
+Total: $22564198
+Average Change: $-8311.105882352942
