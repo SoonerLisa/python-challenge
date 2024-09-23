@@ -1,4 +1,4 @@
-#For Python Challenge - (Detailed read.me file)
+#python-challenge
 
 In this analysis, I was tasked with using a Python script to analyze two data sets.
 
@@ -25,4 +25,6 @@ The second dataset involved election data, and using a Python script, the goal w
 Similar to the first part, the finalized script presents the analysis in the terminal and exports the results to a text file. The accuracy of the data was not tested, and the task aimed to provide practice and valuable coding experience for future analysis assignments.
 
 The dataset included 'Ballot ID', 'County', and 'Candidate' (name). To enhance the analysis, additional data points could be considered to compare the prediction versus the actual outcome of the vote count and the distribution of votes across demographics or regions to reveal patterns and trends.
+
+No license required as all resources were those of BCS.
 
