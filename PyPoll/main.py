@@ -1,2 +1,0 @@
-# PyPoll
-# For main script

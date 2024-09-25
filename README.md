@@ -1,8 +1,8 @@
 #python-challenge
 
-In this analysis, I was tasked with using a Python script to analyze two data sets.
+This analysis writes a Python script to analyze two data sets.
 
-Part 1: PyBank
+Dataset 1: PyBank
 The first dataset involved financial records, and the goal was to calculate the following values:
 1. The total number of months included in the dataset
 2. The net total amount of "Profit/Losses" over the entire period
@@ -14,7 +14,7 @@ The finalized script presents the analysis in the terminal and exports the resul
 
 The database provided two columns: 'Date' and 'Profit/Losses', detailing the monthly profits or losses over the years. This data could be effectively visualized using a line chart to depict patterns, trends, and behaviors, serving as a crucial resource for financial planning and prediction.
 
-Part 2: PyPoll
+Dataset 2: PyPoll
 The second dataset involved election data, and using a Python script, the goal was to determine:
 1. The total number of votes cast
 2. A complete list of candidates who received votes
