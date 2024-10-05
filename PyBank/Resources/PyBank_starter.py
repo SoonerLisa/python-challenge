@@ -1,73 +1,57 @@
 # -*- coding: UTF-8 -*-
-# used kernal: dev (Python 3.10.14
 """PyBank Homework Starter File."""
 
 # Dependencies
-import pandas as pd
 import csv
 import os
 
 # Files to load and output (update with correct file paths)
-csv_path = os.path.join (r'C:\Users\soone\python-challenge\PyBank\Resources', 'budget_data.csv')
-df = pd.read_csv(csv_path)
+file_to_load = os.path.join("Resources", "budget_data.csv")  # Input file path
+file_to_output = os.path.join("analysis", "budget_analysis.txt")  # Output file path
 
-print(df.columns)
+# Define variables to track the financial data
+total_months = 0
+total_net = 0
+# Add more variables to track other necessary financial data
 
-total_months = len(df) - 1 + 1
-print(f"Total Months: {total_months}")
+# Open and read the csv
+with open(file_to_load) as financial_data:
+    reader = csv.reader(financial_data)
 
-net_total = df['Profit/Losses'].sum()
-print(f"Total: ${net_total}")
+    # Skip the header row
+    header = next(reader)
 
-data = pd.read_csv(r'C:\Users\soone\python-challenge\PyBank\Resources\budget_data.csv')
-print(data)
+    # Extract first row to avoid appending to net_change_list
 
-df['change'] = df['Profit/Losses'].diff()
-df['change'] = df['change'].fillna(0)
-df['change'] = df['change'].astype(int)
-df
 
-#The changes in "Profit/Losses" over the entire period (previous cell)...
-#now the average over the entire period
-#the 1: consider all rows except the first one w/no change
-average_change = df.loc[1:,'change'].mean()
-average_change
-#print(average_change)
-#now round
-rounded_average_change = round(average_change, 2)
-print(f"Average Change: ${rounded_average_change}")
+    # Track the total and net change
 
-#compiling results for print once initiated
-# print(f"Total Changes: {net_total}")
-# print(f"Greatest Increase in Profits: {change}")
-# print(f"Greatest Decrease in Profits: {change}")
-# total_changes = df['change'].sum()
-# print(df)
-# print(f"Greatest Increase in Profits: {greatest_increase_row['Date']} ${greatest_increase_row['change']}")
-# print(f"Greatest Decrease in Profits: {greatest_decrease_row['Date']} ${greatest_decrease_row['change']}")
 
-missing_values = df['Profit/Losses'].isnull().sum()
-print (missing_values)
+    # Process each row of data
+    for row in reader:
 
-greatest_increase_row = df.loc[df['change'].idxmax()]
-greatest_decrease_row = df.loc[df['change'].idxmin()]
-print(greatest_increase_row)
-print(greatest_decrease_row)
+        # Track the total
 
-print(f"Financial Analysis")
-print(f"----------------------------")
-print(f"Total Months: {total_months}")
-print(f"Total: ${net_total}")
-print(f"Average Change: ${rounded_average_change}")
-print(f"Greatest Increase in Profits: {greatest_increase_row['Date']} ${greatest_increase_row['change']}")
-print(f"Greatest Decrease in Profits: {greatest_decrease_row['Date']} ${greatest_decrease_row['change']}")
 
-# Open a text file in write mode (text file only) use this block or the next for terminal and file output
-with open('pybank_analysis_results.txt', 'w') as file:
-    # Write PyBank results
-    file.write(f"PyBank Financial Analysis Results\n")
-    file.write(f"Total Months: {total_months}\n")
-    file.write(f"$Total: ${net_total}\n")
-    file.write(f"Average Change: ${rounded_average_change}\n")
-    file.write(f"Greatest Increase in Profits: {greatest_increase_row['Date']} ${greatest_increase_row['change']}\n")
-    file.write(f"Greatest Decrease in Profits: {greatest_decrease_row['Date']} ${greatest_decrease_row['change']}")
+        # Track the net change
+
+
+        # Calculate the greatest increase in profits (month and amount)
+
+
+        # Calculate the greatest decrease in losses (month and amount)
+
+
+
+# Calculate the average net change across the months
+
+
+# Generate the output summary
+
+
+# Print the output
+
+
+# Write the results to a text file
+with open(file_to_output, "w") as txt_file:
+    txt_file.write(output)
