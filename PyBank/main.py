@@ -1,71 +1,64 @@
 # -*- coding: UTF-8 -*-
-# used kernal: dev (Python 3.10.14
-"""PyBank Homework Starter File."""
+# kernal used: dev(Python 3.10.14)
 
 # Dependencies
 import csv
 import os #for building file paths
 
-# Files to load and output (update with correct file paths)
+# Open and read the csv; input csv_path
+    # Successfully store the header row
+csv_path = os.path.join("Resources", "budget_data.csv")
+financial_analysis = os.path.join("Analysis", "financial_analysis.txt")   
 
-csv_path = os.path.join("Resources", "budget_data.csv")  # Input file path
-with open (csv_path) as csv_file:
-    csvreader = csv.reader(csv_file, delimiter=",")
-# Successfully store the header row - check    
-    header = next(csvreader)
-    print("Header", header)
-    
-#     #set up pre for loop
-# total_months = 0 #place holders, starting values to fill[0] in print statements below
-# previous_profit_loss = 0
-# net_total = 0
-# change=[] 
 
-# # (python)-inf to find the smallest/ inf largest change; ultimately asking for ["date", smallest/largest change]
-# greatest_increase = ["",float("-inf")]
-# greatest_decrease = ["",float("inf")]
+with open (csv_path) as budget_data:
+        csvreader = csv.DictReader(budget_data, delimiter=",")
+        csv_data = list(csvreader) #data converted to a list
+                   
+# Initialize variables to track the budget data
+total_months = len(csv_data)
+total_net = 0
+previous_profit_loss = None
+changes = []
+greatest_increase = ["",float("-inf")]
+greatest_decrease = ["",float("inf")]
 
-# # for loop 
-# with open(csv_path,"r") as csv_file: #prepping
-#     csv_reader = csv.reader(csv_file) #parsing;where the csv import dependency is first used
-#     next(csv_reader) #skips header row
-#     csv_data = list(csv_reader) #data converted to a list
-
-#     for row in csv_data: #next calc the total, and then the change, the greatest increase/decrease
-#         total_months+=1
-#         print(row)
-
+for row in csv_data:
+        profit_loss = int(row['Profit/Losses'])
+        total_net += profit_loss
         
-#         # Calculate change-these come from Xpert
-        
-#         if previous_profit_loss is not None:
-#             change = current_profit_loss - previous_profit_loss
-#             changes.append(change)
+        if previous_profit_loss is not None:
+            change = profit_loss - previous_profit_loss
+            changes.append(change)
             
-#         # Check for greatest increase/decrease
-#         if change > greatest_increase[1]:
-#             greatest_increase = [row[0], change]
-#             if change < greatest_decrease[1]:
-#                 greatest_decrease = [row[0], change]
+        # Check for greatest increase/decrease
+            if change > greatest_increase[1]:
+                greatest_increase = [row['Date'], change]
+            if change < greatest_decrease[1]:
+                greatest_decrease = [row['Date'], change]
         
+        previous_profit_loss = profit_loss
 
-# #calc average change, format
-# average_change = sum(change)/len(change)
-# rounded_average_change = round(average_change, 2)
+# Calc average change; Format
+average_change = sum(changes)/len(changes) if changes else 0
+rounded_average_change = round(average_change, 2)
 
-# print(f"Financial Analysis")
-# print(f"----------------------------")
-# print(f"Total Months: {total_months}")
-# print(f"Total: ${net_total}")
-# print(f"Average Change: ${rounded_average_change}")
-# print(f"Greatest Increase in Profits: {greatest_increase[0]} ${greatest_increase[1]}")
-# print(f"Greatest Decrease in Profits: {greatest_decrease[0]} ${greatest_decrease[1]}")
-# # Open a text file in write mode (text file only) use this block or the next for terminal and file output
-# with open('Analysis/pybank_analysis_results.txt', 'w') as file:
-#     # Write PyBank results
-#     file.write(f"PyBank Financial Analysis Results\n")
-#     file.write(f"Total Months: {total_months}\n")
-#     file.write(f"$Total: ${net_total}\n")
-#     file.write(f"Average Change: ${rounded_average_change}\n")
-#     file.write(f"Greatest Increase in Profits: {greatest_increase[0]} ${greatest_increase[1]}\n")
-#     file.write(f"Greatest Decrease in Profits: {greatest_decrease[0]} ${greatest_decrease[1]}")
+# Print to terminal
+print(f"Financial Analysis")
+print("----------------------------")
+print(f"Total Months: {total_months}")
+print(f"Total: ${total_net}")
+print(f"Average Change: ${rounded_average_change}")
+print(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})")
+print(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})")
+
+#Print to text file
+with open(financial_analysis, 'w') as txt_file:
+    txt_file.write("Financial Analysis\n")
+    txt_file.write("----------------------------\n")
+    txt_file.write(f"Total Months: {total_months}\n")
+    txt_file.write(f"Total: ${total_net}\n")
+    txt_file.write(f"Average Change: ${rounded_average_change}\n")
+    txt_file.write(f"Greatest Increase in Profits: {greatest_increase[0]} (${greatest_increase[1]})\n")
+    txt_file.write(f"Greatest Decrease in Profits: {greatest_decrease[0]} (${greatest_decrease[1]})\n")
+

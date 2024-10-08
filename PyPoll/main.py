@@ -9,13 +9,15 @@ import numpy as np
 
 # Open the CSV file and process it
 # Successfully store the header row
+# Initialize variables to track the election data
 csv_path = os.path.join("Resources", "election_data.csv")
+election_results = os.path.join("Analysis", "election_results.txt")   
+
 with open (csv_path, mode='r') as csv_file:
         csvreader = csv.DictReader(csv_file, delimiter=",")
         election_data=list(csvreader)
-# Initialize variables to trach the election data
 
-# The total number of votes and votes per candidate:
+# The total number of votes per candidate:
 total_votes = 0
 each_candidate_votecount = defaultdict(int)
 
@@ -33,30 +35,35 @@ print('-----------------------------')
 # Calculate and print each candidate's results
 # Print candidate, percentage, and vote count
 for candidate, vote_count in each_candidate_votecount.items():
-    percentage = (vote_count / total_votes) * 100  # Calculate percentage
-    formatted_percentage = f"{percentage:.3f}%"  # Format to three decimal places
-    print(f"{candidate}: {formatted_percentage} ({vote_count})") 
+        percentage = (vote_count / total_votes) * 100  # Calculate percentage
+        formatted_percentage = f"{percentage:.3f}%"  # Format to three decimal places
+        print(f"{candidate}: {formatted_percentage} ({vote_count})") 
+
 
 # Determine the winner
-vote_counts = list(each_candidate_votecount.values())  # Get a list of vote counts
-winner_index = np.argmax(vote_counts)  # Get the index of the candidate with the most votes
-winner = list(each_candidate_votecount.keys())[winner_index] # Get the winner candidate's name
+    # Get a list of vote counts
+    # Get the index of the candidate with the most votes
+    # Get the winner candidate's name
+vote_counts = list(each_candidate_votecount.values()) 
+winner_index = np.argmax(vote_counts)  
+winner = list(each_candidate_votecount.keys())[winner_index]
+print("----------------------------")
+print(f"Winner: {winner}")
+print("----------------------------")
 
-# Open the text file for writing
-with open('pypoll_analysis_results.txt', 'w') as file:
-    # Write PyPoll results
-    file.write('Election Results\n')
-    file.write('-----------------------------\n')
-    file.write(f"Total Votes: {total_votes}\n")
-    file.write('-----------------------------\n')
-
-    # Calculate and write each candidate's results to the text file
+# Print to text file
+with open(election_results, 'w') as text_file:
+    text_file.write("Election Results\n")
+    text_file.write("-----------------------------\n")
+    text_file.write(f"Total Votes: {total_votes}\n")
+    text_file.write("-----------------------------\n")
+    
+    # Write each candidate's results to the text file
     for candidate, vote_count in each_candidate_votecount.items():
         percentage = (vote_count / total_votes) * 100  # Calculate percentage
         formatted_percentage = f"{percentage:.3f}%"  # Format to three decimal places
-        file.write(f"{candidate}: {formatted_percentage} ({vote_count})\n")  # Write candidate, percentage, and vote count
-
-    # Write the winner to the text file
-    file.write('-----------------------------\n')
-    file.write(f"Winner: {winner}\n")
-    file.write('-----------------------------\n')
+        text_file.write(f"{candidate}: {formatted_percentage} ({vote_count})\n")
+    
+    text_file.write("-----------------------------\n")
+    text_file.write(f"Winner: {winner}\n")
+    text_file.write("-----------------------------\n")

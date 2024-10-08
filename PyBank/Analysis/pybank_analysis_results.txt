@@ -1,6 +1,0 @@
-PyBank Financial Analysis Results
-Total Months: 0
-$Total: $0
-Average Change: $0
-Greatest Increase in Profits:  $-inf
-Greatest Decrease in Profits:  $inf
